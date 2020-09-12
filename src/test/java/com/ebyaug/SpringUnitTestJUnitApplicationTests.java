@@ -2,8 +2,13 @@ package com.ebyaug;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.mockito.Mockito.anyInt;
+import static org.mockito.Mockito.atLeast;
+import static org.mockito.Mockito.atMost;
 
 import java.util.List;
 
@@ -37,6 +42,21 @@ class SpringUnitTestJUnitApplicationTests {
 		when(mockList.get(anyInt())).thenReturn("HelloWorld");
 		assertEquals("HelloWorld", mockList.get(0));
 		assertEquals("HelloWorld", mockList.get(1));
+	}
+	
+	@Test
+	void verifyMethodCallTest()
+	{
+		List<String> mockList = mock(List.class);
+		String val1 = mockList.get(0);
+		String val2 = mockList.get(1);
+		
+		verify(mockList).get(0);
+		verify(mockList,times(2)).get(anyInt());
+		verify(mockList,atLeast(1)).get(anyInt());
+		verify(mockList,atMost(2)).get(anyInt());
+		verify(mockList,never()).get(2);
+				
 	}
 
 	@Test
