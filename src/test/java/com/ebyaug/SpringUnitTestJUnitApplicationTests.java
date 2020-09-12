@@ -14,6 +14,7 @@ import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentCaptor;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import com.ebyaug.business.BusinessLogic;
@@ -36,6 +37,7 @@ class SpringUnitTestJUnitApplicationTests {
 		assertEquals(5, mockList.size());
 		assertEquals(10, mockList.size());
 	}
+
 	@Test
 	void genericReturnTest() {
 		List mockList = mock(List.class);
@@ -43,20 +45,19 @@ class SpringUnitTestJUnitApplicationTests {
 		assertEquals("HelloWorld", mockList.get(0));
 		assertEquals("HelloWorld", mockList.get(1));
 	}
-	
+
 	@Test
-	void verifyMethodCallTest()
-	{
+	void verifyMethodCallTest() {
 		List<String> mockList = mock(List.class);
 		String val1 = mockList.get(0);
 		String val2 = mockList.get(1);
-		
+
 		verify(mockList).get(0);
-		verify(mockList,times(2)).get(anyInt());
-		verify(mockList,atLeast(1)).get(anyInt());
-		verify(mockList,atMost(2)).get(anyInt());
-		verify(mockList,never()).get(2);
-				
+		verify(mockList, times(2)).get(anyInt());
+		verify(mockList, atLeast(1)).get(anyInt());
+		verify(mockList, atMost(2)).get(anyInt());
+		verify(mockList, never()).get(2);
+
 	}
 
 	@Test
@@ -64,6 +65,18 @@ class SpringUnitTestJUnitApplicationTests {
 
 		when(serviceMock.retrieveValues()).thenReturn(new int[] { 1, 2, 3 });
 		assertEquals(6, bLObj.CalculateSum());
+	}
+	
+	@Test 
+	void argumentCaptorTest()
+	{
+		List<String> mocklist = mock(List.class);
+		mocklist.add("abcd");
+		
+		ArgumentCaptor<String> captor = ArgumentCaptor.forClass(String.class);
+		verify(mocklist).add(captor.capture());
+		assertEquals("abcd", captor.getValue());
+		
 	}
 
 }
