@@ -4,6 +4,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+import java.util.List;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -22,7 +24,11 @@ class SpringUnitTestJUnitApplicationTests {
 	}
 
 	@Test
-	void contextLoads() {
+	void multipleReturnTest() {
+		List mockList = mock(List.class);
+		when(mockList.size()).thenReturn(5).thenReturn(10);
+		assertEquals(5, mockList.size());
+		assertEquals(10, mockList.size());
 	}
 
 	@Test
