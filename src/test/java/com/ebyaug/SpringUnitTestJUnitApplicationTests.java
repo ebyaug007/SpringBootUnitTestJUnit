@@ -3,6 +3,7 @@ package com.ebyaug;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.anyInt;
 
 import java.util.List;
 
@@ -29,6 +30,13 @@ class SpringUnitTestJUnitApplicationTests {
 		when(mockList.size()).thenReturn(5).thenReturn(10);
 		assertEquals(5, mockList.size());
 		assertEquals(10, mockList.size());
+	}
+	@Test
+	void genericReturnTest() {
+		List mockList = mock(List.class);
+		when(mockList.get(anyInt())).thenReturn("HelloWorld");
+		assertEquals("HelloWorld", mockList.get(0));
+		assertEquals("HelloWorld", mockList.get(1));
 	}
 
 	@Test
