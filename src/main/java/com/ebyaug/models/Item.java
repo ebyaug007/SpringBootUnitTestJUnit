@@ -1,7 +1,12 @@
 package com.ebyaug.models;
 
-public class Item {
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity
+public class Item {
+	@Id
 	private int id;
 	private String name;
 	private int price;
@@ -45,5 +50,8 @@ public class Item {
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
 	}
-
+	Item()
+	{
+		
+	}
 }

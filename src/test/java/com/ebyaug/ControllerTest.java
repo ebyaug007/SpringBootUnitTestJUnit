@@ -6,6 +6,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import java.awt.PageAttributes.MediaType;
 
+import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -54,6 +55,19 @@ class ControllerTest {
 		MvcResult result = mockmvc.perform(request)
 				.andExpect(content().json("{\"id\": 1,\"name\":\"Foo\",\"price\":10,\"quantity\":100}")).andReturn();
 
+	}
+	
+	@Test
+	void getFromDBTest() throws Exception
+	{
+		when(bsObj.getAllFromDB()).thenReturn(Arrays.asList(
+				new Item(1,"ABc",20,20),
+				new Item(2,"DBc",20,20)));
+		RequestBuilder request = MockMvcRequestBuilders.get("/getfromdb")
+				.accept(org.springframework.http.MediaType.APPLICATION_JSON);
+		MvcResult result = mockmvc.perform(request)
+				.andExpect(content().json("[{id:1,name:ABc,price:20,quantity:20},{id:2,name:DBc,price:20,quantity:20}]"))
+				.andReturn();
 	}
 
 }
