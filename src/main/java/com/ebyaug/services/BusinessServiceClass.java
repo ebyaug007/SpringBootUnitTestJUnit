@@ -21,7 +21,10 @@ public class BusinessServiceClass {
 
 	public List<Item> getAllFromDB() {
 		
-		return itrepo.findAll();
+		List<Item> items = itrepo.findAll();
+		for(Item i:items)
+			i.setValue(i.getPrice() * i.getQuantity());
+		return items;
 	}
 
 }

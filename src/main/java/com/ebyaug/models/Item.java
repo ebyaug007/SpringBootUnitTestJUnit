@@ -3,6 +3,7 @@ package com.ebyaug.models;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Transient;
 
 @Entity
 public class Item {
@@ -11,7 +12,8 @@ public class Item {
 	private String name;
 	private int price;
 	private int quantity;
-
+	@Transient
+	private int value;
 	public Item(int id, String name, int price, int quantity) {
 		this.id = id;
 		this.name = name;
@@ -54,4 +56,13 @@ public class Item {
 	{
 		
 	}
+
+	public int getValue() {
+		return value;
+	}
+
+	public void setValue(int value) {
+		this.value = value;
+	}
+	
 }
